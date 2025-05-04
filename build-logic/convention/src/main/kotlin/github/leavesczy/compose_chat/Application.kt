@@ -27,7 +27,7 @@ internal fun Project.configureAndroidApplication(commonExtension: BaseAppModuleE
                 outputs.all {
                     if (this is ApkVariantOutputImpl) {
                         this.outputFileName =
-                            "compose_chat_${variant.name}_${variant.versionCode}_${variant.versionName}_${getApkBuildTime()}.apk"
+                            "compose_chat_${variant.name}_v${variant.versionName}_${variant.versionCode}_${getApkBuildTime()}.apk"
                     }
                 }
             }
@@ -78,11 +78,7 @@ internal fun Project.configureAndroidApplication(commonExtension: BaseAppModuleE
             buildConfig = true
         }
         packaging {
-            dex {
-                useLegacyPackaging = true
-            }
             jniLibs {
-                useLegacyPackaging = true
                 excludes += setOf("META-INF/{AL2.0,LGPL2.1}")
             }
             resources {
@@ -108,7 +104,7 @@ private fun getTime(pattern: String): String {
 }
 
 private fun getApkBuildTime(): String {
-    return getTime(pattern = "yyyy_MM_dd_HH_mm_ss")
+    return getTime(pattern = "yyyyMMdd_HHmmss")
 }
 
 private fun getBuildConfigTime(): String {
